@@ -2,7 +2,10 @@ services:
   db:
     image: postgres:15-alpine
     restart: always
-    env_file: .env
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: task_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -12,8 +15,8 @@ services:
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
-    environment:
-      DATABASE_URL: "postgresql://user:password@db:5432/task_db"
+    env_file:
+      - .env
     depends_on:
       - db
 
@@ -23,6 +26,11 @@ services:
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
+    depends_on:
+      - backend
+    ports:
+      - 5173:5173
+# ... (le reste reste identique)
 
   nginx:
     build: ./nginx
@@ -32,3 +40,7 @@ services:
     depends_on:
       - frontend
       - backend
+
+# Ici, on ne déclare que les volumes NOMMÉS (gérés par Docker)
+volumes:
+  postgres_data:
