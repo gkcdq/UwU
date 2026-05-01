@@ -13,13 +13,17 @@ if [ ! -d "prisma" ]; then
     npm install @prisma/client
     npx prisma init
 fi
-
-# Installation des dépendances
 npm install
+npm install @prisma/config
 
-# On lance la synchronisation (création des tables dans Postgres)
+# 2. Génération Prisma et Push
+npx prisma generate
 echo "🔄 Synchronisation de la DB..."
 npx prisma db push
 
-# Lancement de l'app
+# 3. LE PLUS IMPORTANT : On déverrouille TOUT juste avant de lancer
+# On le fait après les installs pour que node_modules soit aussi inclus
+chmod -R 777 /usr/src/app
+
+# 4. Lancement de l'app
 npm run start:dev

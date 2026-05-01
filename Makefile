@@ -36,7 +36,7 @@ logs:
 # Attention : cela réinitialise ta base de données !
 # ... reste du fichier au dessus ...
 
-DOCKER_CLEAN = docker run --rm -v $(PWD):/system alpine sh -c
+DOCKER_CLEAN = docker run --rm -v $(shell pwd):/system alpine sh -c
 
 clean:
 	@echo "🧹 Nettoyage des fichiers protégés via Docker..."
@@ -50,14 +50,12 @@ clean:
 	@echo "✨ Clean completed !"
 
 fclean:
-	@echo "🧨 Purge des fichiers d'installation (en gardant src/)..."
+	@echo "🧨 Purge des dépendances et du build (Code source préservé)..."
 	docker-compose down -v --remove-orphans
-	
-	$(DOCKER_CLEAN) "rm -rf /system/backend/node_modules /system/backend/dist /system/backend/package-lock.json /system/backend/test /system/backend/package.json /system/backend/tsconfig*.json /system/backend/nest-cli.json /system/backend/eslint.config.mjs /system/backend/.prettierrc"
-
-	$(DOCKER_CLEAN) "rm -rf /system/frontend/node_modules /system/frontend/dist /system/frontend/package-lock.json /system/frontend/public /system/frontend/package.json /system/frontend/tsconfig*.json /system/frontend/vite.config.ts /system/frontend/eslint.config.js /system/frontend/index.html"
-	
-	@echo "✨ fclean completed."
+	# On ne touche SURTOUT PAS au package.json ni au dossier src/
+	$(DOCKER_CLEAN) "rm -rf /system/backend/node_modules /system/backend/dist /system/backend/package-lock.json"
+	$(DOCKER_CLEAN) "rm -rf /system/frontend/node_modules /system/frontend/dist /system/frontend/package-lock.json"
+	@echo "✨ fclean terminé. Tes fichiers sont en sécurité."
 
 # Accéder au terminal du backend (pratique pour lancer des commandes prisma)
 shell-back:
@@ -67,7 +65,8 @@ shell-back:
 shell-db:
 	docker exec -it uwu-db-1 psql -U user -d task_db
 
-# Corriger les permissions des fichiers créés par Docker sur ta VM
-fix-perms:
-	@echo "$(BLUE)🔐 Correction des permissions (sudo requis)...$(NC)"
-	sudo chown -R $(USER):$(USER) .
+unlock:
+	@echo "$(BLUE)🔓 Déverrouillage des permissions (chmod 777)...$(NC)"
+	# On utilise -d pour ne pas bloquer le terminal si les containers tournent
+	docker exec C_backend chmod -R 777 /usr/src/app || true
+	docker exec C_frontend chmod -R 777 /usr/src/app || true
