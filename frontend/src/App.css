@@ -185,3 +185,58 @@
     border-right-color: var(--border);
   }
 }
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  /* "none" n'est pas une valeur valide pour align-items, utilise "center" */
+  align-items: center; 
+  padding: 1rem 2rem;
+  background-color: rgba(64, 135, 135, 0.425);
+  color: rgb(9, 255, 0);
+  position: fixed;
+  top: 0;
+  left: 0; /* Ajoute ça pour être sûr qu'elle commence au bord gauche */
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  /* Correction de la syntaxe ici : */
+  margin: 0; 
+  padding: 0; /* Enlever le padding par défaut des <ul> */
+}
+
+/* Pour que tes liens soient BIEN au milieu de la barre, 
+   on utilise des blocs de taille égale sur les côtés */
+.navbar-logo, .navbar-placeholder {
+  flex: 1;
+}
+
+.navbar-links {
+  flex: 2;
+  justify-content: center;
+}
+
+.navbar-logo, .navbar-placeholder {
+  flex: 1;
+}
+
+.navbar-links {
+  flex: 2;
+  justify-content: center;
+}
+
+/* Trouve cette règle dans ton CSS */
+.navbar-logo img {
+  /* Réduis cette valeur. Par exemple, passe de 50px à 30px ou 25px */
+  height: 50px; /* Ajuste ce nombre jusqu'à ce que la taille te convienne */
+  
+  width: auto;     /* Garde les proportions */
+  display: block;  /* Évite les espaces bizarres */
+}

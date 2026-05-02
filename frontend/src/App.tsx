@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { INCREMENT_Button, DECREMENT_Button } from './counter';
+import { NavBar } from './navbar';
 //mport { Link } from 'react-router-dom';
 
 import './App.css'
@@ -9,15 +10,20 @@ function App() {
   return (
     <>
     {
+      <div className="app-container">
+        <NavBar />
+      </div>
+    }
+    {/* {
       <section id = "title_center">
         <h1>Milin project</h1>
       </section>
-    }
+    } */}
     {
       <section id = "center">
-      <INCREMENT_Button count={count}  setCount={setCount}/>
+      <DECREMENT_Button count={count}  setCount={setCount}/>
       <p>{count}</p>
-      <DECREMENT_Button count={count} setCount={setCount}/>
+      <INCREMENT_Button count={count} setCount={setCount}/>
       </section>
 
     }
