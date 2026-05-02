@@ -1,15 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState } from 'react';
+//mport { Link } from 'react-router-dom';
+
 import './App.css'
 
 function App() {
+  // etat, value
   const [count, setCount] = useState(0)
 
+  // components / fonctions
+  const increment = () =>{
+    setCount(count + 1);
+  }
+
+  const decrement = () => {
+    setCount(count - 1);
+  }
+
+  // render
   return (
     <>
-      <section id="center">
+    {
+      <section id = "title_center">
+        <h1>Milin project</h1>
+      </section>
+    }
+    {
+      <section id = "center">
+        <p>{count}</p>
+        <button onClick={increment}>increment</button>
+        <button onClick={decrement}>decrement</button>
+      </section>
+
+    }
+    </>
+  )
+}
+
+export default App
+
+// import reactLogo from './assets/react.svg'
+// import viteLogo from './assets/vite.svg'
+// import heroImg from './assets/hero.png'
+
+
+      /* <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -114,9 +148,9 @@ function App() {
       </section>
 
       <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <section id="spacer"></section> 
+    
   )
-}
+}*/
 
-export default App
+//export default App

@@ -41,11 +41,11 @@ DOCKER_CLEAN = docker run --rm -v $(shell pwd):/system alpine sh -c
 clean:
 	@echo "🧹 Nettoyage des fichiers protégés via Docker..."
 	# Arrête les containers et les volumes
-	docker-compose down -v --remove-orphans
+	docker-compose down
 	
 	# Suppression des dossiers node_modules et dist sans sudo
-	$(DOCKER_CLEAN) "rm -rf /system/backend/node_modules /system/backend/dist /system/backend/package-lock.json"
-	$(DOCKER_CLEAN) "rm -rf /system/frontend/node_modules /system/frontend/dist /system/frontend/package-lock.json"
+	$(DOCKER_CLEAN) "rm -rf /system/backend/dist"
+	$(DOCKER_CLEAN) "rm -rf /system/frontend/dist"
 	
 	@echo "✨ Clean completed !"
 
@@ -53,8 +53,8 @@ fclean:
 	@echo "🧨 Purge des dépendances et du build (Code source préservé)..."
 	docker-compose down -v --remove-orphans
 	# On ne touche SURTOUT PAS au package.json ni au dossier src/
-	$(DOCKER_CLEAN) "rm -rf /system/backend/node_modules /system/backend/dist /system/backend/package-lock.json"
-	$(DOCKER_CLEAN) "rm -rf /system/frontend/node_modules /system/frontend/dist /system/frontend/package-lock.json"
+	$(DOCKER_CLEAN) "rm -rf /system/backend/dist"
+	$(DOCKER_CLEAN) "rm -rf /system/frontend/dist"
 	@echo "✨ fclean terminé. Tes fichiers sont en sécurité."
 
 # Accéder au terminal du backend (pratique pour lancer des commandes prisma)
