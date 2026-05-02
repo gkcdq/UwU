@@ -20,4 +20,4 @@ echo "📥 Installation des dépendances..."
 npm install
 
 echo "🚀 Lancement de Vite..."
-npm run dev -- --host 0.0.0.0
+npm run dev -- --host 0.0.0.0 --port 8080

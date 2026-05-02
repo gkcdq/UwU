@@ -1,22 +1,11 @@
 import { useState } from 'react';
+import { INCREMENT_Button, DECREMENT_Button } from './counter';
 //mport { Link } from 'react-router-dom';
 
 import './App.css'
 
 function App() {
-  // etat, value
-  const [count, setCount] = useState(0)
-
-  // components / fonctions
-  const increment = () =>{
-    setCount(count + 1);
-  }
-
-  const decrement = () => {
-    setCount(count - 1);
-  }
-
-  // render
+  const [count, setCount] = useState(0);
   return (
     <>
     {
@@ -26,9 +15,9 @@ function App() {
     }
     {
       <section id = "center">
-        <p>{count}</p>
-        <button onClick={increment}>increment</button>
-        <button onClick={decrement}>decrement</button>
+      <INCREMENT_Button count={count}  setCount={setCount}/>
+      <p>{count}</p>
+      <DECREMENT_Button count={count} setCount={setCount}/>
       </section>
 
     }
